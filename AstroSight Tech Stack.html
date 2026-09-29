@@ -1,0 +1,544 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>AstroSight: Tech Stack</h1>
+<p><strong>Version:</strong> 1.0 (draft) | <strong>Companion to:</strong> AstroSight PRD</p>
+<p><strong>Legend:</strong> 🔒 <strong>Mandated</strong> = stated in your project prompt. 💡 <strong>Recommended</strong> = my suggestion where the prompt leaves it open. Swap freely, but keep the constraints in section 12.</p>
+<hr>
+<h2>1. Stack at a Glance</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Choice</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td>Python 3.11+</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Astronomical engine</td>
+<td>Swiss Ephemeris via <code>pyswisseph</code></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>Zodiac / ayanamsha</td>
+<td>Sidereal, Lahiri (<code>swe.SIDM_LAHIRI</code>), configurable</td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>Time and location</td>
+<td><code>zoneinfo</code> + <code>timezonefinder</code> + geocoder (<code>geopy</code>)</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Data validation</td>
+<td><code>pydantic</code></td>
+<td>🔒 (evaluate)</td>
+</tr>
+<tr>
+<td>PDF extraction</td>
+<td>PyMuPDF (fallback: <code>pdfplumber</code>, OCR only if needed)</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Knowledge store</td>
+<td>Supabase PostgreSQL + <code>pgvector</code></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>Embeddings</td>
+<td>Configurable provider and model</td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Configurable provider (e.g. Claude API)</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Backend API</td>
+<td>FastAPI</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Streamlit (fast) or Next.js (polished)</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Palm module</td>
+<td>OpenCV + MediaPipe + PyTorch</td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td><code>pytest</code></td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Config / secrets</td>
+<td><code>python-dotenv</code>, <code>.env</code></td>
+<td>🔒</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Architecture Mapped to Tech</h2>
+<pre><code>Birth details → geopy + timezonefinder → zoneinfo (local→UTC) → swe.julday
+  → pyswisseph (positions, Ascendant, houses)
+  → vedic_features.py (pure Python + pydantic models)
+  → Chart JSON
+      → retriever.py (Supabase metadata filter + pgvector similarity)
+      → context_builder.py → LLM API → response
+
+Palm image → OpenCV preprocessing → MediaPipe/segmentation → line detection
+  → feature extraction → PyTorch model → palmistry knowledge / LLM
+</code></pre>
+<p>Each box stays in its own module, so the astrology and palm pipelines never share code paths.</p>
+<h2>3. Core Language and Tooling</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python 3.11+</td>
+<td>💡</td>
+<td>Best ecosystem for <code>pyswisseph</code>, PDF work, ML, CV and Supabase.</td>
+</tr>
+<tr>
+<td><code>venv</code> + <code>requirements.txt</code></td>
+<td>🔒</td>
+<td>Your structure lists <code>requirements.txt</code>; keep dependencies minimal.</td>
+</tr>
+<tr>
+<td><code>ruff</code> / <code>black</code></td>
+<td>💡</td>
+<td>Formatting and linting. Optional.</td>
+</tr>
+<tr>
+<td>Git + <code>.gitignore</code></td>
+<td>💡</td>
+<td>Ignore <code>.env</code>, source PDFs and large generated data.</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Astronomical and Vedic Computation</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Tech</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planet positions, Ascendant, houses</td>
+<td><code>pyswisseph</code> (<code>import swisseph as swe</code>)</td>
+<td>🔒 Never use an LLM or approximate formulas.</td>
+</tr>
+<tr>
+<td>Julian Day</td>
+<td><code>swe.julday</code> / <code>swe.utc_to_jd</code></td>
+<td>🔒 Use Swiss Ephemeris functions, not a custom formula.</td>
+</tr>
+<tr>
+<td>Sidereal mode</td>
+<td><code>swe.set_sid_mode(swe.SIDM_LAHIRI)</code></td>
+<td>🔒 Set once from a central <code>AYANAMSHA</code> config.</td>
+</tr>
+<tr>
+<td>Node handling</td>
+<td>Rahu = mean or true node from Swiss Ephemeris, Ketu = Rahu + 180°</td>
+<td>Document which node type you use.</td>
+</tr>
+<tr>
+<td>Ephemeris data files</td>
+<td>Set with <code>swe.set_ephe_path()</code></td>
+<td>Swiss Ephemeris data files give full precision; without them it falls back to the built-in Moshier calculation, which is less precise. Record which mode is active.</td>
+</tr>
+<tr>
+<td>Local time → UTC</td>
+<td><code>zoneinfo</code> (stdlib)</td>
+<td>Handles historical DST.</td>
+</tr>
+<tr>
+<td>Place → lat/long</td>
+<td><code>geopy</code> (Nominatim) or a geocoding API</td>
+<td>💡 Cache results; user can also enter coordinates manually.</td>
+</tr>
+<tr>
+<td>Lat/long → timezone</td>
+<td><code>timezonefinder</code></td>
+<td>💡</td>
+</tr>
+<tr>
+<td>Feature engine</td>
+<td>Pure Python + <code>pydantic</code> models</td>
+<td>Rashi, nakshatra, pada, dignity, aspects, vargas, Vimshottari dasha, yogas.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Licensing note:</strong> Swiss Ephemeris is dual-licensed (open-source AGPL or a paid professional license). Fine for an academic project, but check terms if you ever commercialize.</p>
+<h2>5. BPHS Knowledge Base Pipeline</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Tech</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text extraction</td>
+<td><strong>PyMuPDF</strong> (<code>fitz</code>)</td>
+<td>💡 Fast, gives page-level text and lets you keep PDF page numbers.</td>
+</tr>
+<tr>
+<td>Layout-sensitive pages</td>
+<td><code>pdfplumber</code></td>
+<td>💡 Only if PyMuPDF output is jumbled.</td>
+</tr>
+<tr>
+<td>Scanned or unclear pages</td>
+<td>OCR (e.g. <code>pytesseract</code>)</td>
+<td>💡 Add only if pages have no text layer. Flag output <code>needs_review</code>; never guess.</td>
+</tr>
+<tr>
+<td>Chapter detection</td>
+<td>Regex over headings and the table of contents</td>
+<td>Map printed page ≠ PDF page separately.</td>
+</tr>
+<tr>
+<td>Atomic rule splitting</td>
+<td>Rule-based Python parsing first; optionally LLM-assisted with human review</td>
+<td>The LLM may <em>segment</em> and <em>tag</em> text but must copy <code>source_text</code> verbatim. Verify with a diff check.</td>
+</tr>
+<tr>
+<td>Storage format</td>
+<td><strong>JSONL</strong> (one object per line)</td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td><code>validate_jsonl.py</code> + <code>pydantic</code> schema</td>
+<td>🔒 Checks IDs, pages, duplicates, house range.</td>
+</tr>
+<tr>
+<td>Data handling / reports</td>
+<td><code>pandas</code></td>
+<td>🔒 (evaluate) Counts per chapter, house, planet, topic.</td>
+</tr>
+</tbody>
+</table>
+<p>Do not add PDF libraries you don't end up using.</p>
+<h2>6. Embeddings</h2>
+<p>The provider and model are configurable (<code>EMBEDDING_PROVIDER</code>, <code>EMBEDDING_MODEL</code>), and <strong>vector dimension must follow the model</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Typical dimension</th>
+<th>Pros / cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hosted API embedding model (e.g. OpenAI <code>text-embedding-3-small</code>)</td>
+<td>API</td>
+<td>1536 (model-dependent)</td>
+<td>Simple, strong quality, needs a key and internet.</td>
+</tr>
+<tr>
+<td><code>sentence-transformers</code> (e.g. <code>BAAI/bge-small-en-v1.5</code>, <code>all-MiniLM-L6-v2</code>)</td>
+<td>Local</td>
+<td>384 (model-dependent)</td>
+<td>Free, offline, good enough for a student project.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Read the dimension from the model at runtime (or a config map) and pass it to the SQL migration. Never hard-code 1536.</li>
+<li>Embed the <code>retrieval_text</code> field (structured label + source text), not metadata alone.</li>
+<li>Use <code>numpy</code> for batching and normalization.</li>
+<li><strong>If you change the model, re-embed everything</strong>; vectors from different models are not comparable.</li>
+</ul>
+<h2>7. Database and Retrieval</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Tech</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database</td>
+<td><strong>Supabase PostgreSQL</strong></td>
+<td>🔒 Single managed service.</td>
+</tr>
+<tr>
+<td>Vector search</td>
+<td><strong>pgvector</strong></td>
+<td>🔒 Table <code>bphs_rules</code> with an <code>embedding</code> column.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td><code>supabase</code> Python client (or <code>psycopg</code> for bulk loads)</td>
+<td>🔒 Use the service-role key only in backend and scripts.</td>
+</tr>
+<tr>
+<td>Vector index</td>
+<td>HNSW (or IVFFlat) with the operator class matching your distance metric (cosine recommended)</td>
+<td>Migration <code>001_create_bphs_rules.sql</code>.</td>
+</tr>
+<tr>
+<td>Metadata indexes</td>
+<td>B-tree on <code>house</code>, <code>planet</code>, <code>chapter</code>, <code>rule_type</code>, <code>topic</code></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td>SQL function/RPC: metadata <code>WHERE</code> filter, then <code>ORDER BY embedding &lt;=&gt; query_embedding</code></td>
+<td>🔒 Filter first, similarity second.</td>
+</tr>
+</tbody>
+</table>
+<p>Optional (only if needed): add full-text search (<code>tsvector</code>) as a hybrid signal. Skip for v1.</p>
+<h2>8. LLM Layer</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td>Configurable. Any capable chat model works (e.g. Claude API). 💡</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Chart JSON + Vedic features + retrieved BPHS rules + source metadata.</td>
+</tr>
+<tr>
+<td>Prompt file</td>
+<td><code>prompts/astrology_interpretation.txt</code> (versioned in Git). 🔒</td>
+</tr>
+<tr>
+<td>Output structure</td>
+<td>Three labelled parts: (A) calculated facts, (B) classical rules, (C) synthesis.</td>
+</tr>
+<tr>
+<td>Guardrails</td>
+<td>Prompt forbids computing positions or inventing rules; post-check that every cited <code>rule_id</code> was actually in the supplied context. 💡</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Low temperature for consistency; no fine-tuning (non-goal).</td>
+</tr>
+</tbody>
+</table>
+<p>Wrap the provider behind one small interface so it can be swapped without touching RAG code.</p>
+<h2>9. Application Layer</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Recommended</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend</td>
+<td><strong>FastAPI</strong> + <code>pydantic</code> (endpoints: <code>/chart</code>, <code>/interpret</code>, <code>/palm</code>)</td>
+<td>Flask, or plain scripts for a demo-only project</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td><strong>Streamlit</strong> for quickest demo (form for birth data, chart view, cited answer)</td>
+<td><strong>Next.js/React</strong> for a polished UI</td>
+</tr>
+<tr>
+<td>Chart display</td>
+<td>Table + simple SVG/Matplotlib North or South Indian chart</td>
+<td>Plotly</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Local or a single small host (Render, Railway) + Supabase</td>
+<td>Anything simple; no Kubernetes or microservices</td>
+</tr>
+</tbody>
+</table>
+<p>All 💡. The prompt doesn't specify a UI; a Streamlit demo is usually enough for a final-year viva.</p>
+<h2>10. Palm-Reading Module</h2>
+<p>Kept fully separate from the astrology code (<code>src/palm/</code> recommended).</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Tech</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image validation (format, size, blur, hand present)</td>
+<td>Pillow, OpenCV, MediaPipe Hands</td>
+</tr>
+<tr>
+<td>Preprocessing (resize, normalize, contrast, denoise)</td>
+<td>OpenCV (e.g. CLAHE, Gaussian blur)</td>
+</tr>
+<tr>
+<td>Palm segmentation / ROI</td>
+<td>MediaPipe hand landmarks or a small U-Net (PyTorch)</td>
+</tr>
+<tr>
+<td>Palm-line detection</td>
+<td>Classical CV (Canny / ridge filters such as Frangi via scikit-image) or a U-Net trained on line masks</td>
+</tr>
+<tr>
+<td>Feature extraction</td>
+<td>Line length, curvature, position, intersections (NumPy / scikit-image)</td>
+</tr>
+<tr>
+<td>ML / CV model</td>
+<td>PyTorch (or scikit-learn for simple classifiers on extracted features)</td>
+</tr>
+<tr>
+<td>Interpretation</td>
+<td>Palmistry knowledge base + LLM, same provider interface as section 8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Open dependency:</strong> you'll need a palm-image dataset and a palmistry knowledge source. Neither is defined yet, so decide these early.</p>
+<h2>11. Testing and Quality</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Tool</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ephemeris</td>
+<td><code>pytest</code> (<code>tests/test_ephemeris.py</code>)</td>
+<td>Julian Day, sidereal mode active, Lahiri set, longitudes 0–360°, ascendant valid, retrograde representable, determinism. Expected values generated from real Swiss Ephemeris output, never hard-coded fakes.</td>
+</tr>
+<tr>
+<td>Data</td>
+<td><code>validate_jsonl.py</code></td>
+<td>Schema, duplicates, missing fields.</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td><code>test_retrieval.py</code> + <code>tests/test_retrieval_cases.json</code></td>
+<td>The 10 test cases in the PRD.</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td>JSON + Markdown</td>
+<td><code>validation_report.json</code>, <code>knowledge_base_report.json/.md</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2>12. Dependencies</h2>
+<p><strong>Minimal <code>requirements.txt</code> core (matches your prompt):</strong></p>
+<pre><code>pyswisseph
+pydantic
+python-dotenv
+supabase
+numpy
+pandas
+</code></pre>
+<p><strong>Add only when actually used:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pymupdf</code></td>
+<td>BPHS text extraction</td>
+</tr>
+<tr>
+<td><code>pytesseract</code> (+ Tesseract binary)</td>
+<td>Only for image-only pages</td>
+</tr>
+<tr>
+<td><code>timezonefinder</code>, <code>geopy</code></td>
+<td>Place → coordinates/timezone</td>
+</tr>
+<tr>
+<td><code>sentence-transformers</code> or provider SDK</td>
+<td>Chosen embedding model</td>
+</tr>
+<tr>
+<td>LLM provider SDK</td>
+<td>Interpretation layer</td>
+</tr>
+<tr>
+<td><code>fastapi</code>, <code>uvicorn</code> / <code>streamlit</code></td>
+<td>App layer</td>
+</tr>
+<tr>
+<td><code>opencv-python</code>, <code>mediapipe</code>, <code>torch</code>, <code>scikit-image</code></td>
+<td>Palm module</td>
+</tr>
+<tr>
+<td><code>pytest</code></td>
+<td>Tests</td>
+</tr>
+</tbody>
+</table>
+<p>Pin versions once everything works, so results are reproducible.</p>
+<h2>13. Configuration and Secrets</h2>
+<p><code>.env.example</code> (no real keys committed):</p>
+<pre><code>EMBEDDING_PROVIDER=
+EMBEDDING_MODEL=
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+</code></pre>
+<p>💡 Also add: <code>LLM_PROVIDER=</code>, <code>LLM_MODEL=</code>, <code>LLM_API_KEY=</code>, <code>AYANAMSHA=</code>, <code>HOUSE_SYSTEM=</code>. Keep ayanamsha and house system in one central config module.</p>
+<h2>14. Hard Constraints (from your prompt)</h2>
+<ul>
+<li>Swiss Ephemeris, not the LLM, does all astronomical calculation.</li>
+<li>Sidereal zodiac with Lahiri by default and configurable.</li>
+<li>BPHS Vol I and II PDFs are the only classical source; no other editions or websites.</li>
+<li>Supabase + pgvector only (no second vector database).</li>
+<li>Retrieval = metadata filter + vector similarity.</li>
+<li>No Kubernetes, microservices, GNNs, fine-tuning or unnecessary agents in v1.</li>
+<li>Palm pipeline stays separate from the astrology pipeline.</li>
+</ul>
+<h2>15. Suggested Build Order</h2>
+<ol>
+<li><code>ephemeris.py</code> + tests (Swiss Ephemeris, timezone, Julian Day)</li>
+<li><code>vedic_features.py</code> + <code>chart.py</code> (Chart JSON)</li>
+<li>PDF inspection → <code>source_inventory.json</code>, <code>chapter_map.json</code></li>
+<li>Sample extraction → validate → full extraction → JSONL</li>
+<li>Embeddings → Supabase migration → upload</li>
+<li>Retriever → context builder → LLM prompt</li>
+<li>API/UI</li>
+<li>Palm module (parallel track once the dataset is decided)</li>
+</ol>
+
+</body></html>

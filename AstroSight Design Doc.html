@@ -1,0 +1,480 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>AstroSight: UI/UX Design Document</h1>
+<p><strong>Version:</strong> 1.0 (draft) | <strong>Companion to:</strong> PRD and Tech Stack docs
+<strong>Visual reference:</strong> the dark, editorial &quot;science / space&quot; concept you shared (used for style direction only; see section 2)</p>
+<hr>
+<h2>1. Design Vision</h2>
+<p>AstroSight should feel like a <strong>modern observatory journal</strong>: dark, calm, precise, and a little cinematic. The user is looking at real astronomical computation and a classical text, not a horoscope-magazine gimmick.</p>
+<p><strong>Design principles</strong></p>
+<ol>
+<li><strong>Show the evidence.</strong> Calculated facts, classical BPHS rules and AI synthesis each get a distinct visual treatment, so the user always knows which is which (this mirrors PRD requirement FR-6.4).</li>
+<li><strong>Dark editorial calm.</strong> Near-black canvas, generous space, big confident type, hairline grid lines.</li>
+<li><strong>One accent, used sparingly.</strong> A single warm accent marks the primary action or the single most important thing on screen.</li>
+<li><strong>Imagery with purpose.</strong> Large cropped astronomical imagery sets the mood on entry screens; data screens stay clean.</li>
+<li><strong>Traceable by default.</strong> Any rule-based sentence is one tap from its source (volume, chapter, printed page, PDF page, rule ID).</li>
+<li><strong>Honest framing.</strong> The product never claims astrology is scientifically proven (see section 12).</li>
+</ol>
+<h2>2. Reference Analysis</h2>
+<p>What I read from your reference image, and how AstroSight adapts it.</p>
+<table>
+<thead>
+<tr>
+<th>Reference trait</th>
+<th>AstroSight adaptation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Near-black background with faint dotted/grain texture and hairline grid dividers</td>
+<td>Same base treatment; gridlines separate the chart, rules and interpretation zones.</td>
+</tr>
+<tr>
+<td>Huge light-grey sans headlines (&quot;Learn by Exploring.&quot;) with a planet/moon image nested between the words</td>
+<td>Landing hero: &quot;Read the sky.&quot; with a cropped planet or moon behind the words.</td>
+</tr>
+<tr>
+<td>Left vertical rail: logo mark, <code>…</code> menu, search icon</td>
+<td>Persistent left rail: logo, navigation, search, settings.</td>
+</tr>
+<tr>
+<td>Tab row (All Articles / Videos / Series / Galleries)</td>
+<td>Section tabs on each screen (e.g. Chart / Dashas / Yogas / Rules).</td>
+</tr>
+<tr>
+<td>Card columns with short titles and small uppercase dates</td>
+<td>Knowledge Explorer cards: rule title + small uppercase metadata (chapter, page).</td>
+</tr>
+<tr>
+<td>Round yellow arrow CTA (&quot;Explore the space&quot;)</td>
+<td>One round accent CTA per screen (&quot;Cast my chart&quot;).</td>
+</tr>
+<tr>
+<td>Article detail: title left, dense body column right</td>
+<td>Interpretation view: headline insight left, layered text right.</td>
+</tr>
+<tr>
+<td>Interactive map with dot markers and labels (Expeditions)</td>
+<td>Chart visualization: Rashi wheel/grid with planet dots and labels.</td>
+</tr>
+<tr>
+<td>Torn-paper divider between sections</td>
+<td>Optional transition between the astrology and palm modules.</td>
+</tr>
+<tr>
+<td>Ghost (very low-opacity) taglines</td>
+<td>Decorative only; must never carry required information (accessibility).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not reused:</strong> the reference's logo, brand mark, photography and copy belong to their owners. Take the <em>layout language</em>, and use your own identity and licensed or public-domain imagery (e.g. NASA image library) or generated SVG.</p>
+<h2>3. Brand Identity</h2>
+<ul>
+<li><strong>Name:</strong> AstroSight</li>
+<li><strong>Tagline options:</strong> &quot;Read the sky.&quot; / &quot;Computed. Cited. Interpreted.&quot; / &quot;Classical wisdom, calculated.&quot;</li>
+<li><strong>Logo idea:</strong> a thin ring (orbit) with a small dot and a horizontal line through it (horizon or &quot;sight&quot; line). Monoline, works at 24px.</li>
+<li><strong>Tone of voice:</strong> calm, precise, respectful. Explains what was calculated before what it might mean. Avoids fate-declaring phrases (&quot;you will…&quot;); prefers &quot;classical texts associate this with…&quot;.</li>
+</ul>
+<h2>4. Color System</h2>
+<p>Dark theme is primary. A light theme is optional and out of scope for v1.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--bg-0</code></td>
+<td><code>#07080A</code></td>
+<td>App background</td>
+</tr>
+<tr>
+<td><code>--bg-1</code></td>
+<td><code>#0E1013</code></td>
+<td>Panels, rail</td>
+</tr>
+<tr>
+<td><code>--bg-2</code></td>
+<td><code>#15181D</code></td>
+<td>Cards, inputs</td>
+</tr>
+<tr>
+<td><code>--line</code></td>
+<td><code>#262A31</code></td>
+<td>Hairline dividers</td>
+</tr>
+<tr>
+<td><code>--text-1</code></td>
+<td><code>#F2F3F5</code></td>
+<td>Headlines, primary text</td>
+</tr>
+<tr>
+<td><code>--text-2</code></td>
+<td><code>#A9AEB8</code></td>
+<td>Body secondary</td>
+</tr>
+<tr>
+<td><code>--text-3</code></td>
+<td><code>#6E7480</code></td>
+<td>Metadata, labels</td>
+</tr>
+<tr>
+<td><code>--accent</code></td>
+<td><code>#F2B233</code></td>
+<td>Primary CTA, active tab, key highlight (a warm gold, deliberately distinct from any specific brand's yellow)</td>
+</tr>
+<tr>
+<td><code>--fact</code></td>
+<td><code>#6FB7FF</code></td>
+<td><strong>Calculated chart facts</strong> (Layer A)</td>
+</tr>
+<tr>
+<td><code>--rule</code></td>
+<td><code>#E8C58A</code></td>
+<td><strong>Classical BPHS rule text</strong> (Layer B)</td>
+</tr>
+<tr>
+<td><code>--synth</code></td>
+<td><code>#C9B8FF</code></td>
+<td><strong>AI synthesis</strong> (Layer C)</td>
+</tr>
+<tr>
+<td><code>--review</code></td>
+<td><code>#FF8A5B</code></td>
+<td><code>needs_review</code> / warnings</td>
+</tr>
+<tr>
+<td><code>--ok</code></td>
+<td><code>#5FD39A</code></td>
+<td>Verified / success</td>
+</tr>
+</tbody>
+</table>
+<p>Rules: body text must meet WCAG AA contrast against its background; the accent is used once per view as the focal point.</p>
+<pre><code class="language-css">:root{
+  --bg-0:#07080A; --bg-1:#0E1013; --bg-2:#15181D; --line:#262A31;
+  --text-1:#F2F3F5; --text-2:#A9AEB8; --text-3:#6E7480;
+  --accent:#F2B233; --fact:#6FB7FF; --rule:#E8C58A; --synth:#C9B8FF;
+  --review:#FF8A5B; --ok:#5FD39A;
+}
+</code></pre>
+<h2>5. Typography</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Font (free)</th>
+<th>Style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Display / headlines</td>
+<td><strong>Inter Tight</strong> or <strong>Space Grotesk</strong></td>
+<td>600, tight tracking, sizes 56–120px on hero</td>
+</tr>
+<tr>
+<td>UI / body</td>
+<td><strong>Inter</strong></td>
+<td>400/500, 15–16px body, 1.6 line-height</td>
+</tr>
+<tr>
+<td>Classical quotes (BPHS text)</td>
+<td><strong>Source Serif 4</strong> or <strong>Newsreader</strong></td>
+<td>Italic or regular, so quoted scripture reads differently from UI text</td>
+</tr>
+<tr>
+<td>Metadata / labels</td>
+<td>Inter, uppercase</td>
+<td>11px, +8% letter-spacing, <code>--text-3</code></td>
+</tr>
+<tr>
+<td>Numerics (degrees, dates)</td>
+<td><strong>JetBrains Mono</strong> or Inter tabular</td>
+<td>For longitudes like <code>123°27′</code>, Julian Day</td>
+</tr>
+</tbody>
+</table>
+<p>Typography carries the three-layer idea: <strong>sans</strong> = facts and UI, <strong>serif</strong> = classical rule, <strong>sans in a tinted panel</strong> = AI synthesis.</p>
+<h2>6. Layout and Grid</h2>
+<ul>
+<li><strong>Desktop:</strong> 12-column grid, 1440 base, 24px gutters. Left rail 72px, content area with hairline column dividers like the reference.</li>
+<li><strong>Tablet:</strong> 8 columns; rail collapses to icons.</li>
+<li><strong>Mobile:</strong> 4 columns; rail becomes a bottom tab bar (Chart, Ask, Explore, Palm).</li>
+<li>Spacing scale: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 72.</li>
+<li>Radius: 12px cards, 999px for round CTA and chips. Borders 1px <code>--line</code>.</li>
+<li>Texture: subtle dot grid or grain at 3–5% opacity on <code>--bg-0</code>. Never behind body text.</li>
+</ul>
+<h2>7. Information Architecture</h2>
+<pre><code>AstroSight
+├── Home (landing)
+├── Cast Chart (birth input)
+├── My Chart
+│   ├── Overview (chart wheel + planets table)
+│   ├── Houses (1–12)
+│   ├── Dashas (Vimshottari timeline)
+│   ├── Yogas
+│   └── Ask / Interpretation (RAG answers with citations)
+├── Knowledge Explorer (BPHS rules by house, planet, topic)
+├── Palm Reading (separate module)
+└── About / Methodology / Disclaimer
+    (Developer/admin: Review Queue, Reports)
+</code></pre>
+<h2>8. Key Screens</h2>
+<h3>8.1 Landing (reference: &quot;Learn by Exploring&quot;)</h3>
+<ul>
+<li>Full-bleed dark hero, giant headline split around a cropped planet or moon: <strong>&quot;Read the sky.&quot;</strong></li>
+<li>Small ghost tagline top-left. A one-line description top-right, e.g. &quot;Swiss Ephemeris precision. Classical BPHS rules. Cited interpretation.&quot;</li>
+<li>One round accent CTA bottom-left: <strong>Cast my chart ↓</strong>.</li>
+<li>Below the fold: three-step strip (Calculate → Retrieve → Interpret) and a &quot;How it works&quot; link.</li>
+</ul>
+<pre><code>┌──┬────────────────────────────────────────────────┐
+│◯ │  Read the       ( planet crop )      the sky.  │
+│… │                                                │
+│🔍│  Computed. Cited. Interpreted.                 │
+│  │  (●↓) Cast my chart                            │
+└──┴────────────────────────────────────────────────┘
+</code></pre>
+<h3>8.2 Birth Input (&quot;Cast Chart&quot;)</h3>
+<ul>
+<li>Split layout: left = large title &quot;Your moment of birth.&quot;; right = form.</li>
+<li>Fields: date, time (with &quot;unknown time&quot; warning), place (autocomplete), resolved lat/long and timezone shown read-only with an edit link, settings drawer (ayanamsha, house system, defaults shown).</li>
+<li>Live &quot;Resolved to UTC&quot; line so the local-to-UTC step is visible and verifiable.</li>
+<li>Primary round CTA: <strong>Cast chart</strong>.</li>
+</ul>
+<h3>8.3 Chart Dashboard (reference: Articles grid + Expeditions map)</h3>
+<ul>
+<li>Center: <strong>chart visual</strong>. Toggle South Indian / North Indian / Wheel. Planet dots with abbreviations, retrograde marked with <strong>R</strong>, dignity shown as a small superscript.</li>
+<li>Right column (&quot;From the calculation&quot;): Lagna, Moon sign, nakshatra + pada, current Mahadasha/Antardasha.</li>
+<li>Below: planets table in mono numerals (sign, degree, nakshatra, house, speed, R).</li>
+<li>Tabs: <strong>Chart · Houses · Dashas · Yogas · Ask</strong>.</li>
+<li>Footer strip: Julian Day, ayanamsha, house system, ephemeris mode, so the reader can audit the setup.</li>
+</ul>
+<pre><code>┌──┬─ My Chart ─ Chart | Houses | Dashas | Yogas | Ask ──┐
+│  │ ┌─────────────┐  Lagna   Leo 12°04′                 │
+│  │ │  chart grid │  Moon    Rohini · Pada 2            │
+│  │ │  (planets)  │  Dasha   Jupiter › Saturn           │
+│  │ └─────────────┘                                     │
+│  │ Planet  Sign  Deg  Nak.  House  R                   │
+└──┴─────────────────────────────────────────────────────┘
+</code></pre>
+<h3>8.4 Interpretation / Ask (reference: article detail, title left / text right)</h3>
+<ul>
+<li>Left: the question or house/planet in large type (e.g. &quot;Mars in the 10th house.&quot;).</li>
+<li>Right: the answer in <strong>three visually separated layers</strong>:
+<ul>
+<li><strong>A. Calculated fact</strong> (blue rule, sans): &quot;Mars is in the 10th house in Aries, 14°.&quot;</li>
+<li><strong>B. Classical rule</strong> (gold rule, serif): the BPHS passage, verbatim, with a source chip <code>Vol I · Ch 23 · p. 261</code>.</li>
+<li><strong>C. Synthesis</strong> (violet-tinted panel): the AI's readable interpretation, labelled &quot;AI synthesis&quot;.</li>
+</ul>
+</li>
+<li>Each <strong>B</strong> block has a <strong>&quot;View source&quot;</strong> action opening the Source Drawer (8.5).</li>
+<li>Query chips above: Career, Marriage, Wealth, Education, Dasha.</li>
+</ul>
+<h3>8.5 Source Drawer</h3>
+<p>Right-side drawer showing: rule text (<code>source_text</code>), surrounding <code>context_text</code>, book, volume, translator, chapter and title, <strong>printed page and PDF page (separate)</strong>, rule ID, extraction status badge (<strong>Verified</strong> in green or <strong>Needs review</strong> in orange).</p>
+<h3>8.6 Dasha Timeline</h3>
+<p>Horizontal timeline of Mahadashas with the current period highlighted in accent; click expands Antardashas. Related BPHS dasha rules appear as cards below.</p>
+<h3>8.7 Knowledge Explorer (reference: Articles / Series grid)</h3>
+<ul>
+<li>Tabs: <strong>Houses · Planets · Signs · Yogas · Dashas · Ashtakavarga · All</strong>.</li>
+<li>Card grid: rule headline, tiny uppercase meta (<code>CH 14 · P 194</code>), priority dot, verified/needs-review badge.</li>
+<li>Filters: house (1–12), planet, topic, priority, status. Search box for semantic queries.</li>
+<li>Purpose: lets an evaluator browse the knowledge base and verify extraction quality.</li>
+</ul>
+<h3>8.8 Palm Reading (separate module)</h3>
+<ul>
+<li>Distinct entry point; visually flagged with a different tint (e.g. warm terracotta accent) so users understand it is a <strong>different pipeline</strong>, not part of the chart.</li>
+<li>Steps: upload / camera → guidance overlay (hand outline, good-light tips) → validation result → processing → results.</li>
+<li>Results: the photo with detected lines overlaid (toggle each line), extracted features list, then interpretation text.</li>
+<li>Error states: no hand detected, blurry, too dark, wrong orientation, each with a clear retry hint.</li>
+</ul>
+<h3>8.9 Methodology / About</h3>
+<p>Explains the pipeline, sources (BPHS Vol I &amp; II, translator), sidereal Lahiri default, limitations, and the disclaimer. Doubles as academic documentation for evaluators.</p>
+<h3>8.10 Review Queue (developer/admin, optional)</h3>
+<p>Table of <code>needs_review</code> rules and problem pages, with source text side by side and an &quot;approve / edit / reject&quot; action. Not part of the public UI.</p>
+<h2>9. Component Library</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left rail</td>
+<td>Logo, nav icons, search, settings; 72px</td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td>Text tabs, active = <code>--text-1</code> + accent underline; inactive = <code>--text-3</code></td>
+</tr>
+<tr>
+<td>Round CTA</td>
+<td>56px circle, accent fill, dark arrow icon, label beside it</td>
+</tr>
+<tr>
+<td>Card</td>
+<td><code>--bg-2</code>, hairline border, small uppercase meta, 2-line title max</td>
+</tr>
+<tr>
+<td>Chart canvas</td>
+<td>SVG; planet glyph dots, hover tooltip (sign, degree, nakshatra)</td>
+</tr>
+<tr>
+<td>Layer block</td>
+<td>Three variants: Fact / Rule / Synthesis</td>
+</tr>
+<tr>
+<td>Source chip</td>
+<td><code>Vol I · Ch 23 · p. 261</code>, clickable, opens drawer</td>
+</tr>
+<tr>
+<td>Status badge</td>
+<td>Verified, Needs review</td>
+</tr>
+<tr>
+<td>Input set</td>
+<td>Text, date, time, place autocomplete, select, toggle</td>
+</tr>
+<tr>
+<td>Data table</td>
+<td>Mono numerals, sticky header, zebra off</td>
+</tr>
+<tr>
+<td>Timeline</td>
+<td>Dasha bars</td>
+</tr>
+<tr>
+<td>Toast / banner</td>
+<td>Errors, review warnings</td>
+</tr>
+<tr>
+<td>Disclaimer footer</td>
+<td>Always visible on interpretation screens</td>
+</tr>
+</tbody>
+</table>
+<h2>10. Interaction and Motion</h2>
+<ul>
+<li>Page transitions: 200–300ms fade/slide; no bouncy animations.</li>
+<li>Hero: very slow parallax on the planet image; respects <code>prefers-reduced-motion</code>.</li>
+<li>Chart: planets fade in sequentially on first render (skip when reduced motion is on).</li>
+<li>Loading: skeleton blocks plus a staged status (&quot;Resolving timezone → Calculating positions → Retrieving rules → Writing interpretation&quot;), which reinforces the pipeline.</li>
+<li>Hover: cards lift by 2px and border brightens; focus rings always visible in <code>--accent</code>.</li>
+</ul>
+<h2>11. States and Edge Cases</h2>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Design response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Birth time unknown</td>
+<td>Inline warning; hide or grey Lagna-dependent features; explain why.</td>
+</tr>
+<tr>
+<td>Place not found</td>
+<td>Suggest alternatives; allow manual lat/long.</td>
+</tr>
+<tr>
+<td>No rules retrieved</td>
+<td>Say so plainly; show only calculated facts. Never fill gaps with unsupported text.</td>
+</tr>
+<tr>
+<td>Rule <code>needs_review</code></td>
+<td>Orange badge on the rule; note that the text is under verification.</td>
+</tr>
+<tr>
+<td>LLM/API failure</td>
+<td>Show the chart and retrieved rules without synthesis, with a retry button.</td>
+</tr>
+<tr>
+<td>Palm image invalid</td>
+<td>Specific reason plus retry tips.</td>
+</tr>
+<tr>
+<td>Empty Knowledge Explorer filter</td>
+<td>&quot;No rules match&quot; with a clear-filters action.</td>
+</tr>
+</tbody>
+</table>
+<h2>12. Content and Ethics</h2>
+<ul>
+<li>Persistent, non-intrusive disclaimer: &quot;AstroSight is an academic implementation of computational Vedic astrology and AI-assisted interpretation. It does not claim scientific validity of astrological predictions.&quot;</li>
+<li>Prefer attribution language: &quot;According to BPHS (Vol I, Ch 23)…&quot;.</li>
+<li>No fear-based or medical/financial/legal directives; add a gentle note on sensitive topics such as health and longevity.</li>
+<li>Privacy: explain what birth data is stored and offer delete-my-data (define retention before deployment).</li>
+<li>Copyright: display only short rule excerpts with provenance; no full-book reading view of the translation.</li>
+</ul>
+<h2>13. Accessibility</h2>
+<ul>
+<li>WCAG AA contrast for all real text; ghost taglines are decorative and marked <code>aria-hidden</code>.</li>
+<li>Full keyboard navigation; visible focus states.</li>
+<li>Never use color alone: layers also carry text labels (&quot;Calculated&quot;, &quot;Classical rule&quot;, &quot;AI synthesis&quot;); status badges include text.</li>
+<li>Chart has a text/table alternative listing every planet's position.</li>
+<li>Respect <code>prefers-reduced-motion</code>; minimum touch target 44px.</li>
+<li>Minimum body text 15px; avoid the tiny metadata sizes for anything essential.</li>
+</ul>
+<h2>14. Responsive Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Breakpoint</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥1200px</td>
+<td>Rail + 3-zone layout (chart / facts / interpretation)</td>
+</tr>
+<tr>
+<td>768–1199px</td>
+<td>Rail collapses to icons; interpretation stacks below chart</td>
+</tr>
+<tr>
+<td>&lt;768px</td>
+<td>Bottom tab bar; chart full-width with pinch-zoom; Source Drawer becomes a bottom sheet</td>
+</tr>
+</tbody>
+</table>
+<h2>15. Imagery and Assets</h2>
+<ul>
+<li>Hero and section imagery: public-domain astronomy (e.g. NASA) or your own renders; keep a credits list.</li>
+<li>Icons: a single monoline set (e.g. Lucide) at 1.5px stroke.</li>
+<li>Planet and sign glyphs: Unicode astrological symbols or a custom SVG set for consistency.</li>
+<li>Textures: generate a dot-grid/grain PNG or CSS pattern; keep files small.</li>
+</ul>
+<h2>16. Implementation Notes</h2>
+<ul>
+<li><strong>Framework:</strong> for this look (rail layout, layered blocks, drawers, animated chart) I'd move the frontend to <strong>Next.js + Tailwind</strong> rather than Streamlit. This refines the 💡 frontend suggestion in the Tech Stack doc; Streamlit is still fine for a quick demo without this styling.</li>
+<li>Map the section 4 tokens into <code>tailwind.config</code> and CSS variables; build the chart as a React SVG component.</li>
+<li>Backend endpoints stay as in the tech stack: <code>/chart</code>, <code>/interpret</code>, <code>/palm</code>, plus <code>/rules</code> for the Explorer and Source Drawer.</li>
+<li>Keep the palm module in its own route and codebase folder to preserve the pipeline separation.</li>
+</ul>
+<h2>17. Deliverables and Next Steps</h2>
+<ol>
+<li>Approve palette, type and layout direction.</li>
+<li>Produce low-fi wireframes for screens 8.1–8.8 (Figma or paper).</li>
+<li>Build the design tokens and a small component kit.</li>
+<li>Prototype the three priority screens: <strong>Landing, Chart Dashboard, Interpretation + Source Drawer</strong>.</li>
+<li>Usability check with 3–5 people, then iterate.</li>
+</ol>
+<h2>18. Open Design Questions</h2>
+<ol>
+<li>South Indian, North Indian, or both chart styles as the default?</li>
+<li>Single-language (English) UI, or plan for Hindi/regional support?</li>
+<li>Do you want accounts and saved charts, or a stateless one-shot experience?</li>
+<li>Should the Review Queue be part of the deliverable or stay a script-only tool?</li>
+<li>Is a light theme required, or is dark-only acceptable for the submission?</li>
+</ol>
+
+</body></html>
